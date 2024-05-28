@@ -3,10 +3,10 @@
 
 name: Close GitHub Pull Requests
 
-# Trigger this Action when a pull request is opened.
+# Trigger this Action every 10 minutes.
 on:
-  pull_request:
-    types: [opened]
+  schedule:
+    - cron: '*/10 * * * *'
 
 jobs:
   close_prs:
