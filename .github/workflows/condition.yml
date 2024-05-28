@@ -3,10 +3,16 @@
 
 name: Close GitHub Pull Requests
 
-# Trigger this Action every 10 minutes.
+# Trigger this Action when a pull request is opened.
 on:
-  schedule:
-    - cron: '*/10 * * * *'
+  pull_request:
+    types: [opened]
+
+# Permissions granted to the GitHub Actions bot.
+permissions:
+  contents: write # only for delete-branch option
+  issues: write
+  pull-requests: write
 
 jobs:
   close_prs:
@@ -14,9 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     # Only run this job in the read-only mirror repository.
     if: github.repository == 'bartvdbraak/test-122299' && contains(github.server_url, 'github.com')
-    # Permissions granted to the GitHub Actions bot.
-    permissions:
-      pull-requests: write
     steps:
       - uses: actions/stale@v9
         with:
